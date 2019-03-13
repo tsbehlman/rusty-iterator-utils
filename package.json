@@ -1,0 +1,25 @@
+{
+  "name": "rusty-iterator-utils",
+  "version": "1.0.0",
+  "description": "A collection of utility functions for iterables and iterators inspired by Rust's Iterator trait",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "author": "Trevor Behlman",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsbehlman/rusty-iterator-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tsbehlman/rusty-iterator-utils/issues"
+  },
+  "homepage": "https://github.com/tsbehlman/rusty-iterator-utils#readme",
+  "devDependencies": {
+    "jasmine": "^3.3.1"
+  }
+}
