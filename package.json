@@ -9,7 +9,8 @@
   "author": "Trevor Behlman",
   "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "async.js"
   ],
   "repository": {
     "type": "git",

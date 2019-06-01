@@ -1,5 +1,5 @@
 function selfIterable( iterator ) {
-	iterator[ Symbol.iterator ] = () => iterator;
+	iterator[ Symbol.asyncIterator ] = () => iterator;
 	return iterator;
 }
 
@@ -7,12 +7,12 @@ module.exports.zip = function( ...iterables ) {
 	const iterators = iterables.map( iterable => iterable[ Symbol.iterator ]() );
 
 	return selfIterable( {
-		next: function() {
+		next: async function() {
 			const values = [];
 			let done = true;
 
 			for( const iterator of iterators ) {
-				const result = iterator.next();
+				const result = await iterator.next();
 				values.push( result.value );
 				done = done && result.done;
 			}
@@ -25,15 +25,15 @@ module.exports.zip = function( ...iterables ) {
 	} );
 };
 
-module.exports.enumerate = function*( iterable ) {
+module.exports.enumerate = async function*( iterable ) {
 	let index = 0;
-	for( const value of iterable ) {
+	for await( const value of iterable ) {
 		yield [ index++, value ];
 	}
 };
 
 module.exports.skip = function( iterable, numberOfSkips = 0 ) {
-	const iterator = iterable[ Symbol.iterator ]();
+	const iterator = iterable[ Symbol.asyncIterator ]();
 
 	while( numberOfSkips > 0 ) {
 		iterator.next();
@@ -43,9 +43,9 @@ module.exports.skip = function( iterable, numberOfSkips = 0 ) {
 	return iterator;
 };
 
-module.exports.take = function*( iterable, numberToTake = 0 ) {
+module.exports.take = async function*( iterable, numberToTake = 0 ) {
 	if( numberToTake > 0 ) {
-		for( const value of iterable ) {
+		for await( const value of iterable ) {
 			yield value;
 			if( --numberToTake <= 0 ) {
 				break;
@@ -54,18 +54,18 @@ module.exports.take = function*( iterable, numberToTake = 0 ) {
 	}
 };
 
-module.exports.chain = function*( ...iterables ) {
+module.exports.chain = async function*( ...iterables ) {
 	for( const iterable of iterables ) {
-		for( const value of iterable ) {
+		for await( const value of iterable ) {
 			yield value;
 		}
 	}
 };
 
-module.exports.chunks = function*( iterable, chunkSize = 1 ) {
+module.exports.chunks = async function*( iterable, chunkSize = 1 ) {
 	if( chunkSize > 0 ) {
 		let chunk = []
-		for( const value of iterable ) {
+		for await( const value of iterable ) {
 			chunk.push( value );
 			if( chunk.length === chunkSize ) {
 				yield chunk;
@@ -78,10 +78,10 @@ module.exports.chunks = function*( iterable, chunkSize = 1 ) {
 	}
 };
 
-module.exports.windows = function*( iterable, windowSize = 1 ) {
+module.exports.windows = async function*( iterable, windowSize = 1 ) {
 	if( windowSize > 0 ) {
 		let window = [];
-		for( const value of iterable ) {
+		for await( const value of iterable ) {
 			window.push( value );
 			if( window.length === windowSize ) {
 				yield window;
@@ -92,5 +92,3 @@ module.exports.windows = function*( iterable, windowSize = 1 ) {
 };
 
 module.exports.selfIterable = selfIterable;
-
-module.exports.async = require( "./async.js" );
