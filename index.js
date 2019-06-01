@@ -93,6 +93,22 @@ module.exports.windows = function*( iterable, windowSize = 1 ) {
 
 module.exports.collect = Array.from;
 
+module.exports.map = function*( iterable, map ) {
+	let index = 0;
+	for( const value of iterable ) {
+		yield map( value, index++ );
+	}
+};
+
+module.exports.filter = function*( iterable, filter ) {
+	let index = 0;
+	for( const value of iterable ) {
+		if( filter( value, index++ ) ) {
+			yield value;
+		}
+	}
+};
+
 module.exports.selfIterable = selfIterable;
 
 module.exports.async = require( "./async.js" );

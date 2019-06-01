@@ -99,4 +99,20 @@ module.exports.collect = async function( iterable ) {
 	return collection;
 };
 
+module.exports.map = async function*( iterable, mapper ) {
+	let index = 0;
+	for await( const value of iterable ) {
+		yield mapper( value, index++ );
+	}
+};
+
+module.exports.filter = async function*( iterable, filter ) {
+	let index = 0;
+	for await( const value of iterable ) {
+		if( filter( value, index++ ) ) {
+			yield value;
+		}
+	}
+};
+
 module.exports.selfIterable = selfIterable;
