@@ -91,6 +91,8 @@ module.exports.windows = function*( iterable, windowSize = 1 ) {
 	}
 };
 
+module.exports.collect = Array.from;
+
 module.exports.selfIterable = selfIterable;
 
 module.exports.async = require( "./async.js" );

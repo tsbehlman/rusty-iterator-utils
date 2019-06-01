@@ -91,4 +91,12 @@ module.exports.windows = async function*( iterable, windowSize = 1 ) {
 	}
 };
 
+module.exports.collect = async function( iterable ) {
+	const collection = [];
+	for await( const value of iterable ) {
+		collection.push( value );
+	}
+	return collection;
+};
+
 module.exports.selfIterable = selfIterable;
