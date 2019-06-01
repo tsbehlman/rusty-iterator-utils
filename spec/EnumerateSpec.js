@@ -1,7 +1,7 @@
 const { verifyIterator } = require( "./TestUtils" );
 const { enumerate } = require( "../index" );
 
-describe( "enumerator", () => {
+describe( "enumerate", () => {
 	it( "enumerates an empty array", () => {
 		verifyIterator(
 			enumerate( [] ),

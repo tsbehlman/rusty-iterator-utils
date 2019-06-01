@@ -1,7 +1,7 @@
 const { verifyIterator } = require( "./TestUtils" );
 const { skip } = require( "../index" );
 
-describe( "enumerator", () => {
+describe( "skip", () => {
 	it( "skips 0 items in an empty array", () => {
 		verifyIterator(
 			skip( [], 0 ),
