@@ -109,6 +109,14 @@ module.exports.filter = function*( iterable, filter ) {
 	}
 };
 
+module.exports.reduce = function( iterable, reducer, accumulator ) {
+	let index = 0;
+	for( const value of iterable ) {
+		accumulator = reducer( accumulator, value, index++ );
+	}
+	return accumulator;
+};
+
 module.exports.selfIterable = selfIterable;
 
 module.exports.async = require( "./async.js" );

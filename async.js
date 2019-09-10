@@ -115,4 +115,12 @@ module.exports.filter = async function*( iterable, filter ) {
 	}
 };
 
+module.exports.reduce = async function( iterable, reducer, accumulator ) {
+	let index = 0;
+	for await ( const value of iterable ) {
+		accumulator = reducer( accumulator, value, index++ );
+	}
+	return accumulator;
+};
+
 module.exports.selfIterable = selfIterable;

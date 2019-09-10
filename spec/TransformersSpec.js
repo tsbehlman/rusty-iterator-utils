@@ -1,16 +1,7 @@
-const fs = require( "fs" );
-const path = require( "path" );
-require( "./TestUtils" );
+const { getFixtures } = require( "./TestUtils" );
 const utils = require( "../index" );
 
-const suites = new Map();
-
-for( const file of fs.readdirSync( path.normalize( "spec/fixtures" ) ) ) {
-	const extension = path.extname( file );
-	if( extension === ".js" || extension === ".json" ) {
-		suites.set( path.basename( file, extension ), require( "./fixtures/" + file ) );
-	}
-}
+const suites = getFixtures( "transformers" );
 
 for( const [ functionName, fixtures ] of suites ) {
 	const syncFunction = utils[ functionName ];
