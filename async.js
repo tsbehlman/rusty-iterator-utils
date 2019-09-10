@@ -122,6 +122,10 @@ module.exports.reduce = async function( iterable, reducer, accumulator ) {
 
 	// If accumulator is not passed at all - undefined is OK
 	if( arguments.length < 3 ) {
+		if( done ) {
+			throw new TypeError( "reduce of empty iterable with no initial value" );
+		}
+
 		accumulator = value;
 		( { done, value } = await iterator.next() );
 		index++;
