@@ -15,8 +15,18 @@ module.exports = [
 		6
 	],
 	[
+		"reduces an array of numbers to a sum without an initial value",
+		[ [ 1, 2, 3 ], ( acc, value ) => acc + value ],
+		6
+	],
+	[
 		"reduces an array of strings to a concatenated string",
 		[ [ "a", "b", "c" ], ( acc, value ) => acc + value, "" ],
+		"abc"
+	],
+	[
+		"reduces an array of strings to a concatenated string without an initial value",
+		[ [ "a", "b", "c" ], ( acc, value ) => acc + value ],
 		"abc"
 	],
 	[

@@ -110,10 +110,23 @@ module.exports.filter = function*( iterable, filter ) {
 };
 
 module.exports.reduce = function( iterable, reducer, accumulator ) {
+	const iterator = iterable[ Symbol.iterator ]();
+	let { done, value } = iterator.next();
 	let index = 0;
-	for( const value of iterable ) {
-		accumulator = reducer( accumulator, value, index++ );
+	
+	// If accumulator is not passed at all - undefined is OK
+	if( arguments.length < 3 ) {
+		accumulator = value;
+		( { done, value } = iterator.next() );
+		index++;
 	}
+	
+	while( !done ) {
+		accumulator = reducer( accumulator, value, index );
+		( { done, value } = iterator.next() );
+		index++;
+	}
+	
 	return accumulator;
 };
 

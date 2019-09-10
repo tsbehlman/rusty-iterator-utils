@@ -116,10 +116,23 @@ module.exports.filter = async function*( iterable, filter ) {
 };
 
 module.exports.reduce = async function( iterable, reducer, accumulator ) {
+	const iterator = iterable[ Symbol.iterator ]();
+	let { done, value } = iterator.next();
 	let index = 0;
-	for await ( const value of iterable ) {
-		accumulator = reducer( accumulator, value, index++ );
+
+	// If accumulator is not passed at all - undefined is OK
+	if( arguments.length < 3 ) {
+		accumulator = value;
+		( { done, value } = await iterator.next() );
+		index++;
 	}
+
+	while( !done ) {
+		accumulator = reducer( accumulator, value, index );
+		( { done, value } = await iterator.next() );
+		index++;
+	}
+
 	return accumulator;
 };
 
