@@ -4,7 +4,8 @@
   "description": "A collection of utility functions for iterables and iterators inspired by Rust's Iterator trait",
   "main": "src/index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "coverage": "slim-cover --include src"
   },
   "author": "Trevor Behlman",
   "license": "MIT",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/tsbehlman/rusty-iterator-utils#readme",
   "devDependencies": {
-    "jasmine": "^3.3.1"
+    "jasmine": "^3.3.1",
+    "slim-cover": "^1.5.1"
   }
 }
