@@ -93,6 +93,13 @@ module.exports.windows = function*( iterable, windowSize = 1 ) {
 
 module.exports.collect = Array.from;
 
+module.exports.forEach = function( iterable, callback ) {
+	let index = 0;
+	for( const value of iterable ) {
+		callback( value, index++ );
+	}
+};
+
 module.exports.map = function*( iterable, map ) {
 	let index = 0;
 	for( const value of iterable ) {

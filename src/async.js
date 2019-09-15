@@ -99,6 +99,13 @@ module.exports.collect = async function( iterable ) {
 	return collection;
 };
 
+module.exports.forEach = async function( iterable, callback ) {
+	let index = 0;
+	for await( const value of iterable ) {
+		callback( value, index++ );
+	}
+};
+
 module.exports.map = async function*( iterable, mapper ) {
 	let index = 0;
 	for await( const value of iterable ) {
