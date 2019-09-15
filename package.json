@@ -2,15 +2,14 @@
   "name": "rusty-iterator-utils",
   "version": "1.0.0",
   "description": "A collection of utility functions for iterables and iterators inspired by Rust's Iterator trait",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jasmine"
   },
   "author": "Trevor Behlman",
   "license": "MIT",
   "files": [
-    "index.js",
-    "async.js"
+    "src"
   ],
   "repository": {
     "type": "git",

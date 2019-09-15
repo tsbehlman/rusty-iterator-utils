@@ -1,5 +1,5 @@
 require( "./TestUtils" );
-const utils = require( "../index" );
+const utils = require( "../src/index" );
 
 const emptyError = new TypeError( "reduce of empty iterable with no initial value" );
 

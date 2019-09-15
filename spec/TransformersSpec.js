@@ -1,5 +1,5 @@
 const { getFixtures } = require( "./TestUtils" );
-const utils = require( "../index" );
+const utils = require( "../src/index" );
 
 const suites = getFixtures( "transformers" );
 
