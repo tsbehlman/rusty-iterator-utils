@@ -16,6 +16,7 @@ Each utility function is accompanied by an equivalent under the exported `async`
 * <a href="#take">take</a>
 * <a href="#chain">chain</a>
 * <a href="#chunks">chunks</a>
+* <a href="#chunksExact">chunksExact</a>
 * <a href="#windows">windows</a>
 * <a href="#forEach">forEach</a>
 * <a href="#map">map</a>
@@ -88,6 +89,18 @@ collect( chunks( [ 1, 2, 3, 4 ], 2 ) )
 
 collect( chunks( [ 1, 2, 3, 4 ], 3 ) )
 // => [ [ 1, 2, 3 ], [ 1 ] ]
+```
+
+#### <a name="chunksExact"></a>`chunksExact( iterable, chunkSize = 1 )`
+
+Returns an iterator whose values are non-overlapping partitions of the iterable, each containing exactly `chunkSize` items.  Any remaining items which do not fit in a full partition are omitted (as many as `chunkSize - 1` items).
+
+```javascript
+collect( chunksExact( [ 1, 2, 3, 4 ], 2 ) )
+// => [ [ 1, 2 ], [ 3, 4 ] ]
+
+collect( chunksExact( [ 1, 2, 3, 4 ], 3 ) )
+// => [ [ 1, 2, 3 ] ]
 ```
 
 #### <a name="windows"></a>`windows( iterable, windowSize = 1 )`

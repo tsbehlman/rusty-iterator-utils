@@ -78,6 +78,19 @@ module.exports.chunks = function*( iterable, chunkSize = 1 ) {
 	}
 };
 
+module.exports.chunksExact = function*( iterable, chunkSize = 1 ) {
+	if( chunkSize > 0 ) {
+		let chunk = []
+		for( const value of iterable ) {
+			chunk.push( value );
+			if( chunk.length === chunkSize ) {
+				yield chunk;
+				chunk = [];
+			}
+		}
+	}
+};
+
 module.exports.windows = function*( iterable, windowSize = 1 ) {
 	if( windowSize > 0 ) {
 		let window = [];
