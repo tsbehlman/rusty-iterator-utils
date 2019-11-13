@@ -29,9 +29,13 @@ Modifies the given object which conforms to the [iterator protocol](https://deve
 
 #### <a name="collect"></a>`collect( iterable )`
 
-A shorthand for [`Array.from`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from), or for the async variant a version of `Promise.all` which accepts an async iterable such as a [readable Node.js stream](https://nodejs.org/api/stream.html#stream_readable_symbol_asynciterator).
+Based on [the `collect` method for Rust's `std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect), [JavaScript's `Array.from`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from), and [JavaScript's `Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)
+
+A shorthand for `Array.from`, or for the async variant a version of `Promise.all` which accepts an async iterable such as a [readable Node.js stream](https://nodejs.org/api/stream.html#stream_readable_symbol_asynciterator).
 
 #### <a name="zip"></a>`zip( ...iterables )`
+
+Based on [the `zip` method for Rust's `std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.zip)
 
 Returns an iterator where each value is an array of each given iterable's current value.  If any iterable runs out of values before the others, its value is considered to be `undefined`.
 
@@ -45,6 +49,8 @@ collect( zip( [ "a" ], [ 1, 2, 3 ] ) )
 
 #### <a name="chain"></a>`chain( ...iterables )`
 
+Based on [the `chain` method for Rust's `std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.chain)
+
 Returns an iterable which acts as a concatenation of all given iterables.
 
 ```javascript
@@ -53,6 +59,8 @@ collect( chain( [ "a", "b", "c" ], [ 1, 2, 3 ] ) )
 ```
 
 #### <a name="enumerate"></a>`enumerate( iterable )`
+
+Based on [the `enumerate` method for Rust's `std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.enumerate)
 
 Returns an iterator whose values are array pairs, the first of each pair being the zero-based index of the value and the second being the current value from the iterable.
 
@@ -63,6 +71,8 @@ collect( enumerate( [ "foo", "bar", "baz" ], 2 ) )
 
 #### <a name="skip"></a>`skip( iterable, numItemsToSkip )`
 
+Based on [the `skip` method for Rust's `std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.skip)
+
 Returns an iterator which has dropped the first `numItemsToSkip` items.
 
 ```javascript
@@ -72,6 +82,8 @@ collect( skip( [ "a", "b", "c", "d" ], 2 ) )
 
 #### <a name="take"></a>`take( iterable, numItemsToTake )`
 
+Based on [the `take` method for Rust's `std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.take)
+
 Returns an iterable that stops after the first `numItemsToTake` items.
 
 ```javascript
@@ -80,6 +92,8 @@ collect( take( [ "a", "b", "c", "d" ], 2 ) )
 ```
 
 #### <a name="chunks"></a>`chunks( iterable, chunkSize = 1 )`
+
+Based on [Rust's `std::slice::Chunks`](https://doc.rust-lang.org/std/slice/struct.Chunks.html)
 
 Returns an iterator whose values are non-overlapping partitions of the iterable, each containing at most `chunkSize` items.
 
@@ -93,6 +107,8 @@ collect( chunks( [ 1, 2, 3, 4 ], 3 ) )
 
 #### <a name="chunksExact"></a>`chunksExact( iterable, chunkSize = 1 )`
 
+Based on [Rust's `std::slice::ChunksExact`](https://doc.rust-lang.org/std/slice/struct.ChunksExact.html)
+
 Returns an iterator whose values are non-overlapping partitions of the iterable, each containing exactly `chunkSize` items.  Any remaining items which do not fit in a full partition are omitted (as many as `chunkSize - 1` items).
 
 ```javascript
@@ -104,6 +120,8 @@ collect( chunksExact( [ 1, 2, 3, 4 ], 3 ) )
 ```
 
 #### <a name="windows"></a>`windows( iterable, windowSize = 1 )`
+
+Based on [Rust's `std::slice::Windows`](https://doc.rust-lang.org/std/slice/struct.Windows.html)
 
 Returns an iterator whose values are overlapping partitions of the iterable, each containing exactly `chunkSize` items.
 
@@ -117,16 +135,24 @@ collect( windows( [ 1, 2, 3, 4 ], 3 ) )
 
 #### <a name="forEach"></a>`forEach( iterable, callback )`
 
-A version of [`Array.prototype.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) which can be applied to any iterable.
+Based on [JavaScript's `Array.prototype.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+
+A version of `Array.prototype.forEach` which can be applied to any iterable.
 
 #### <a name="map"></a>`map( iterable, callback )`
 
-A version of [`Array.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) which can be applied to any iterable.  Returns an iterable containing the mapped values.
+Based on [JavaScript's `Array.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+
+A version of `Array.prototype.map` which can be applied to any iterable.  Returns an iterable containing the mapped values.
 
 #### <a name="filter"></a>`filter( iterable, callback )`
 
-A lazy version of [`Array.prototype.filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) which can be applied to any iterable.  Returns an iterable containing only the values which passed the filter callback.
+Based on [JavaScript's `Array.prototype.filter `](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+A lazy version of `Array.prototype.filter` which can be applied to any iterable.  Returns an iterable containing only the values which passed the filter callback.
 
 #### <a name="reduce"></a>`reduce( iterable, reducer, accumulator )`
 
-A version of [`Array.prototype.reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) which can be applied to any iterable.  Returns the result of the reduction.
+Based on [JavaScript's `Array.prototype.reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+
+A version of `Array.prototype.reduce` which can be applied to any iterable.  Returns the result of the reduction.
