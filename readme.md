@@ -18,6 +18,7 @@ Each utility function is accompanied by an equivalent under the exported `async`
 * <a href="#chunks">chunks</a>
 * <a href="#chunksExact">chunksExact</a>
 * <a href="#windows">windows</a>
+* <a href="#partition">partition</a>
 * <a href="#forEach">forEach</a>
 * <a href="#map">map</a>
 * <a href="#filter">filter</a>
@@ -131,6 +132,20 @@ collect( windows( [ 1, 2, 3, 4 ], 2 ) )
 
 collect( windows( [ 1, 2, 3, 4 ], 3 ) )
 // => [ [ 1, 2, 3 ], [ 2, 3, 4 ] ]
+```
+
+#### <a name="partition"></a>`partition( iterable, partitioner )`
+
+Based on [the `partition` method for Rust's `std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.partition)
+
+Returns two iterators: one containing the values for which `partitioner` returned `true` and one for all other values.
+
+```javascript
+const [ evens, odds ] = partition( [ 1, 2, 3, 4, 5 ], value => ( value % 2 ) == 0 )
+collect( evens )
+// => [ 2, 4 ]
+collect( odds )
+// => [ 1, 3, 5 ]
 ```
 
 #### <a name="forEach"></a>`forEach( iterable, callback )`

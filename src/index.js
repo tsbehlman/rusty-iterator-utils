@@ -154,6 +154,38 @@ module.exports.reduce = function( iterable, reducer, accumulator ) {
 	return accumulator;
 };
 
+module.exports.partition = function( iterable, partitioner ) {
+	const trueBacklog = [];
+	const falseBacklog = [];
+
+	const iterator = module.exports.map( iterable, ( value, index ) => {
+		const backlog = partitioner( value, index ) ? trueBacklog : falseBacklog;
+		backlog.push( value );
+	} );
+
+	function* flush( array ) {
+		while( array.length > 0 ) {
+			yield array.shift();
+		}
+	}
+
+	function* trueIterator() {
+		for( const partition of iterator ) {
+			yield* flush( trueBacklog );
+		}
+		yield* flush( trueBacklog );
+	}
+
+	function* falseIterator() {
+		for( const partition of iterator ) {
+			yield* flush( falseBacklog );
+		}
+		yield* flush( falseBacklog );
+	}
+
+	return [ trueIterator(), falseIterator() ];
+};
+
 module.exports.selfIterable = selfIterable;
 
 module.exports.async = require( "./async.js" );
