@@ -214,4 +214,56 @@ module.exports.partition = function( iterable, partitioner ) {
 	return [ trueIterator(), falseIterator() ];
 };
 
+module.exports.interleave = async function*( ...iterables ) {
+	if( iterables.length === 0 ) {
+		return;
+	}
+
+	const iterators = iterables.map( iterable => iterable[ Symbol.iterator ]() );
+
+	let allDone = false;
+
+	while( !allDone ) {
+		allDone = true;
+		for( const iterator of iterators ) {
+			const { value, done } = await iterator.next();
+			if( !done ) {
+				yield value;
+				allDone = false;
+			}
+		}
+	}
+};
+
+module.exports.interleaveShortest = async function*( ...iterables ) {
+	if( iterables.length === 0 ) {
+		return;
+	}
+
+	const iterators = iterables.map( iterable => iterable[ Symbol.iterator ]() );
+
+	while( true ) {
+		for( const iterator of iterators ) {
+			const { value, done } = await iterator.next();
+			if( done ) {
+				return;
+			}
+			yield value;
+		}
+	}
+};
+
+module.exports.intersperse = async function*( iterable, separator ) {
+	const iterator = iterable[ Symbol.iterator ]();
+	let { value, done } = await iterator.next();
+
+	while( !done ) {
+		yield value;
+		( { value, done } = await iterator.next() );
+		if( !done ) {
+			yield separator;
+		}
+	}
+};
+
 module.exports.selfIterable = selfIterable;

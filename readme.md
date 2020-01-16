@@ -24,6 +24,9 @@ Each utility function is accompanied by an equivalent under the exported `async`
 * <a href="#map">map</a>
 * <a href="#filter">filter</a>
 * <a href="#reduce">reduce</a>
+* <a href="#interleave">interleave</a>
+* <a href="#interleave">interleaveShortest</a>
+* <a href="#intersperse">intersperse</a>
 
 #### <a name="selfIterable"></a>`selfIterable( iterator )`
 
@@ -161,6 +164,48 @@ collect( evens )
 // => [ 2, 4 ]
 collect( odds )
 // => [ 1, 3, 5 ]
+```
+
+#### <a name="interleave"></a>`interleave( ...iterables )`
+
+Based on [the `interleave` method from Itertools](https://docs.rs/itertools/0.7.8/itertools/trait.Itertools.html#method.interleave)
+
+Returns alternating values from the given iterables in the order they are given until reaching the end of all given iterables.
+
+```javascript
+collect( interleave( [ "a", "b", "c" ], [ 1, 2, 3 ] ) )
+// => [ "a", 1, "b", 2, "c", 3 ]
+
+collect( interleave( [ "a", "b" ], [ 1, 2, 3, 4 ] ) )
+// => [ "a", 1, "b", 2, 3, 4 ]
+```
+
+#### <a name="interleaveShortest"></a>`interleaveShortest( ...iterables )`
+
+Based on [the `interleaveShortest` method from Itertools](https://docs.rs/itertools/0.7.8/itertools/trait.Itertools.html#method.interleaveShortest)
+
+Like `interleave`, but stops after the first exhausted iterable.
+
+```javascript
+collect( interleaveShortest( [ "a", "b", "c" ], [ 1, 2, 3 ] ) )
+// => [ "a", 1, "b", 2, "c", 3 ]
+
+collect( interleaveShortest( [ "a", "b" ], [ 1, 2, 3, 4 ] ) )
+// => [ "a", 1, "b", 2 ]
+```
+
+#### <a name="intersperse"></a>`intersperse( iterable, separator )`
+
+Based on [the `intersperse` method from Itertools](https://docs.rs/itertools/0.7.8/itertools/trait.Itertools.html#method.intersperse)
+
+Returns an iterator containing all values from the given iterable, inserting `separator` between each value.
+
+```javascript
+collect( intersperse( [ 1, 2, 3 ], "a" ) )
+// => [ 1, "a", 2, "a", 3 ]
+
+collect( intersperse( [ 1 ], "a" ) )
+// => [ 1 ]
 ```
 
 #### <a name="forEach"></a>`forEach( iterable, callback )`

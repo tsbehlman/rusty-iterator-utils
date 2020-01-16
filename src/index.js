@@ -208,6 +208,58 @@ module.exports.partition = function( iterable, partitioner ) {
 	return [ trueIterator(), falseIterator() ];
 };
 
+module.exports.interleave = function*( ...iterables ) {
+	if( iterables.length === 0 ) {
+		return;
+	}
+
+	const iterators = iterables.map( iterable => iterable[ Symbol.iterator ]() );
+
+	let allDone = false;
+
+	while( !allDone ) {
+		allDone = true;
+		for( const iterator of iterators ) {
+			const { value, done } = iterator.next();
+			if( !done ) {
+				yield value;
+				allDone = false;
+			}
+		}
+	}
+};
+
+module.exports.interleaveShortest = function*( ...iterables ) {
+	if( iterables.length === 0 ) {
+		return;
+	}
+	
+	const iterators = iterables.map( iterable => iterable[ Symbol.iterator ]() );
+	
+	while( true ) {
+		for( const iterator of iterators ) {
+			const { value, done } = iterator.next();
+			if( done ) {
+				return;
+			}
+			yield value;
+		}
+	}
+};
+
+module.exports.intersperse = function*( iterable, separator ) {
+	const iterator = iterable[ Symbol.iterator ]();
+	let { value, done } = iterator.next();
+	
+	while( !done ) {
+		yield value;
+		( { value, done } = iterator.next() );
+		if( !done ) {
+			yield separator;
+		}
+	}
+};
+
 module.exports.selfIterable = selfIterable;
 
 module.exports.async = require( "./async.js" );
