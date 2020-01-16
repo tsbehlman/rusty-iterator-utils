@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tsbehlman/rusty-iterator-utils.svg?branch=master)](https://travis-ci.org/tsbehlman/slim-cover)
 
-A collection of utility functions for [JavaScript iterables and iterators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) inspired by [Rust's Iterator trait](https://doc.rust-lang.org/std/iter/trait.Iterator.html) and [Rust's slice primitive](https://doc.rust-lang.org/std/primitive.slice.html).  Useful for lazily evaluating sequences or streams of data.
+A collection of utility functions for [JavaScript iterables and iterators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) inspired by [Rust's Iterator trait](https://doc.rust-lang.org/std/iter/trait.Iterator.html), [Rust's slice primitive](https://doc.rust-lang.org/std/primitive.slice.html), and third-party crate [Itertools](https://github.com/rust-itertools/itertools).  Useful for lazily evaluating sequences or streams of data.
 
 ### Functions
 
@@ -11,6 +11,7 @@ Each utility function is accompanied by an equivalent under the exported `async`
 * <a href="#selfIterable">selfIterable</a>
 * <a href="#collect">collect</a>
 * <a href="#zip">zip</a>
+* <a href="#zipLongest">zipLongest</a>
 * <a href="#enumerate">enumerate</a>
 * <a href="#skip">skip</a>
 * <a href="#take">take</a>
@@ -44,7 +45,21 @@ Returns an iterator where each value is an array of each given iterable's curren
 collect( zip( [ "a", "b", "c" ], [ 1, 2, 3 ] ) )
 // => [ [ "a", 1 ], [ "b", 2 ], [ "c", 3 ] ]
 
-collect( zip( [ "a" ], [ 1, 2, 3 ] ) )
+collect( zip( [ "a", "b" ], [ 1, 2, 3, 4 ] ) )
+// => [ [ "a", 1 ], [ "b", 2 ] ]
+```
+
+#### <a name="zipLongest"></a>`zipLongest( ...iterables )`
+
+Based on [the `zip_longest` method from Itertools](https://docs.rs/itertools/0.7.8/itertools/trait.Itertools.html#method.zip_longest)
+
+Like `zip`, but continues until all iterables are exhausted.  The value of an exhausted iterable is represented as `undefined`.
+
+```javascript
+collect( zip_longest( [ "a", "b", "c" ], [ 1, 2, 3 ] ) )
+// => [ [ "a", 1 ], [ "b", 2 ], [ "c", 3 ] ]
+
+collect( zip_longest( [ "a" ], [ 1, 2, 3 ] ) )
 // => [ [ "a", 1 ], [ undefined, 2 ], [ undefined, 3 ] ]
 ```
 

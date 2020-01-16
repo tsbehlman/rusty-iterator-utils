@@ -22,12 +22,12 @@ module.exports = [
 	[
 		"zips an array into an array with more values",
 		[ [ "a" ], [ 1, 2, 3 ] ],
-		[ [ "a", 1 ] ]
+		[ [ "a", 1 ], [ undefined, 2 ], [ undefined, 3 ] ]
 	],
 	[
 		"zips an array into an array with fewer values",
 		[ [ "a", "b", "c" ], [ 1 ] ],
-		[ [ "a", 1 ] ]
+		[ [ "a", 1 ], [ "b", undefined ], [ "c", undefined ] ]
 	],
 	[
 		"zips three arrays",

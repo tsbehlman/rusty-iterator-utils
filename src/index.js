@@ -9,6 +9,28 @@ module.exports.zip = function( ...iterables ) {
 	return selfIterable( {
 		next: function() {
 			const values = [];
+			let done = false;
+
+			for( const iterator of iterators ) {
+				const result = iterator.next();
+				values.push( result.value );
+				done = done || result.done;
+			}
+
+			return {
+				done,
+				value: done ? undefined : values
+			};
+		}
+	} );
+};
+
+module.exports.zipLongest = function( ...iterables ) {
+	const iterators = iterables.map( iterable => iterable[ Symbol.iterator ]() );
+
+	return selfIterable( {
+		next: function() {
+			const values = [];
 			let done = true;
 
 			for( const iterator of iterators ) {
